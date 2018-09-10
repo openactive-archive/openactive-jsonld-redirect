@@ -10,13 +10,13 @@ app.use(express.json());
 app.get('/', function (req, res) {
    // respond with json
   if (/(ld\+)?json/.test(req.headers.accept)) {
-    request.get({ url: "https://www.openactive.io/ns/oa.jsonld" }, function(error, response, body) { 
+    request.get({ url: (process.env.NAMESPACE || "https://www.openactive.io/ns/oa.jsonld") }, function(error, response, body) { 
       if (!error && response.statusCode == 200) { 
         res.json(JSON.parse(body));
       } 
     });
   } else {
-    res.redirect('https://www.openactive.io/');
+    res.redirect(process.env.REDIRECT || 'https://www.openactive.io/');
   }
 });
 
