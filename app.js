@@ -39,6 +39,21 @@ app.get('/activity-list', function (req, res) {
   }
 });
 
+app.get('/controlled-vocabularies/:vocab?', function (req, res) {
+   // respond with json
+  if (!req.params.vocab) {
+    res.redirect( (process.env.BASE_URL || "https://www.openactive.io") + "/controlled-vocabularies/");
+  } else if (/(ld\+)?json/.test(req.headers.accept)) {
+    request.get({ url: (process.env.BASE_URL || "https://www.openactive.io") + "/controlled-vocabularies/" + req.params.vocab + "/" + req.params.vocab + ".jsonld" }, function(error, response, body) { 
+      if (!error && response.statusCode == 200) { 
+        res.json(JSON.parse(body));
+      } 
+    });
+  } else {
+    res.redirect( (process.env.BASE_URL || "https://www.openactive.io") + "/controlled-vocabularies/" + req.params.vocab + "/");
+  }
+});
+
 app.get('/ns-beta', function (req, res) {
    // respond with json
   if (/(ld\+)?json/.test(req.headers.accept)) {
