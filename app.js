@@ -39,6 +39,15 @@ app.get('/activity-list', function (req, res) {
   }
 });
 
+app.get('/activity-list/activity-list.jsonld', function (req, res) {
+  // respond with json
+  request.get({ url: "https://www.openactive.io/activity-list/activity-list.jsonld" }, function(error, response, body) { 
+    if (!error && response.statusCode == 200) { 
+      res.json(JSON.parse(body));
+    } 
+  });
+});
+
 app.get('/accessibility-support', function (req, res) {
    // respond with json
   if (/(ld\+)?json/.test(req.headers.accept)) {
@@ -50,6 +59,15 @@ app.get('/accessibility-support', function (req, res) {
   } else {
     res.redirect('https://www.openactive.io/accessibility-support/');
   }
+});
+
+app.get('/accessibility-support/accessibility-support.jsonld', function (req, res) {
+  // respond with json
+  request.get({ url: "https://www.openactive.io/accessibility-support/accessibility-support.jsonld" }, function(error, response, body) { 
+    if (!error && response.statusCode == 200) { 
+      res.json(JSON.parse(body));
+    } 
+  });
 });
 
 app.get('/controlled-vocabularies/:vocab?', function (req, res) {
