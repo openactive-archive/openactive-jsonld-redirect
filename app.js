@@ -98,6 +98,15 @@ app.get('/ns-beta', function (req, res) {
   }
 });
 
+app.get('/ns-beta/beta.jsonld', function (req, res) {
+  // respond with json
+  request.get({ url: "https://www.openactive.io/ns-beta/beta.jsonld" }, function(error, response, body) { 
+    if (!error && response.statusCode == 200) { 
+      res.json(JSON.parse(body));
+    } 
+  });
+});
+
 app.get('/test-interface', function (req, res) {
    // respond with json
   if (/(ld\+)?json/.test(req.headers.accept)) {
@@ -109,6 +118,15 @@ app.get('/test-interface', function (req, res) {
   } else {
     res.redirect('https://www.openactive.io/test-interface/');
   }
+});
+
+app.get('/test-interface/test-interface.jsonld', function (req, res) {
+  // respond with json
+  request.get({ url: "https://www.openactive.io/test-interface/test-interface.jsonld" }, function(error, response, body) { 
+    if (!error && response.statusCode == 200) { 
+      res.json(JSON.parse(body));
+    } 
+  });
 });
 
 app.get('/extension', function (req, res) {
